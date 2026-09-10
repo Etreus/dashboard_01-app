@@ -1,9 +1,3 @@
-import subprocess
-import sys
-
-# Ejecuta la instalación usando el módulo recomendado y el ejecutable actual de Python
-subprocess.check_call([sys.executable, "-m", "pip", "install", "matplotlib", "requests", "pandas", "seaborn", "plotly"])
-
 import streamlit as st
 import requests
 import pandas as pd
