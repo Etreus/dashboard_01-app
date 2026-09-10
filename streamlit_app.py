@@ -33,7 +33,7 @@ try:
         df = df.rename(columns= {"ANO":"AÑO","Genero":"Género","Region":"Región","Funcion":"Función","CLASE_INDUSTRIA_II":"Clase_Industria"})
         st.metric(label="Registros Duplicados Detectados", value=int(total_duplicados))
         st.markdown("#### Vista previa de los datos extraídos:")
-        st.dataframe(df.head(10)) # Streamlit mostrará las 10 primeras filas de la tabla interactiva perfectamente
+        st.dataframe(df.head(10), width="stretch") # Streamlit mostrará las 10 primeras filas de la tabla interactiva perfectamente
         st.success("✅ Datos cargados exitosamente")
     else:
         st.error("❌ La estructura de la API no contiene los registros esperados.")
@@ -53,10 +53,9 @@ try:
            fig = px.pie(ax,
            values="Ocupados",
            names="Género",
-           #title="Empleabilidad por Género año 2011",
            hole=0.3) # Esto lo convierte en un gráfico de dona muy elegante
 
-           st.plotly_chart(fig, use_container_width=True)
+           st.plotly_chart(fig, width="stretch")
 
 
           with col2:
@@ -82,7 +81,7 @@ try:
             )
 
             # 4. Le pedimos a Streamlit que dibuje el objeto de Plotly
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
     st.header("Visualizaciones con Seaborn")
     with st.container():
@@ -98,7 +97,7 @@ try:
            ax.set_title("Ocupados, Función y Clase de Industria")
            ax.set_xlabel("Función")
            ax.set_ylabel("Ocupados")
-           st.pyplot(fig)
+           st.pyplot(fig, width="stretch")
           with col2:
             # 4. Le pedimos a Streamlit que dibuje el objeto de Seaborn
 
@@ -112,7 +111,7 @@ try:
             ax.set_title("Ocupados, Clase de Industria por Trimestre")
             ax.set_xlabel("Clase de Industria")
             ax.set_ylabel("Ocupados")
-            st.pyplot(fig)
+            st.pyplot(fig, width="stretch")
 
              
     st.subheader("Histograma de Ocupados en Pymes")
@@ -138,7 +137,7 @@ try:
     plt.xlim(1, 20)
     plt.xticks(range(1, 21))
     plt.legend()
-    st.pyplot(fig)
+    st.pyplot(fig, width="stretch")
     
     st.subheader("Histograma de Ocupados en Grandes Empresas")
     df_gempresas = df[(df["Ocupados"] > 0) & (df["Ocupados"] >= 20)]
@@ -161,7 +160,7 @@ try:
     max_valor = int(df_gempresas["Ocupados"].max()) if len(df_gempresas) > 0 else 100
     plt.xlim(20, max_valor + 20)  
     plt.legend()
-    st.pyplot(fig)
+    st.pyplot(fig, width="stretch")
 
     st.subheader("Gráfico de Violín")
     fig, ax = plt.subplots(figsize=(15, 8))
@@ -171,7 +170,7 @@ try:
     ax.set_title("Ocupados por Clase de Industria")
     ax.set_xlabel("Clase de Industria")
     ax.set_ylabel("Ocupados")
-    st.pyplot(fig)
+    st.pyplot(fig, width="stretch")
     #6. Sección Interactiva
     st.header("Sección Interactiva y gráficos con Plotly")
     st.subheader("Puede seleccionar el tipo gráfico y la columnas")
@@ -204,7 +203,7 @@ try:
            else:
               fig = px.line(df_selection, x=x_axis, y=y_axis)
            fig.update_xaxes(tickangle=45)
-           st.plotly_chart(fig, use_container_width=True)
+           st.plotly_chart(fig, width="stretch")
 
     except Exception as e:
         st.error(f"⚠️ No se pudo generar el gráfico seleccionado. Asegúrate de elegir una columna numérica para el eje Y (como 'Ocupados'). Detalle: {e}")
