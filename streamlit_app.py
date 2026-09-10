@@ -114,6 +114,55 @@ try:
             ax.set_ylabel("Ocupados")
             st.pyplot(fig)
 
+             
+    st.subheader("Histograma de Ocupados en Pymes")
+    df_pymes = df[(df["Ocupados"] > 0) & (df["Ocupados"] <= 20)]
+    fig, ax = plt.subplots(figsize=(13, 5))
+
+    df_pymes["Ocupados"].plot(
+       kind="hist",
+       bins=20,
+       ax=ax,
+       color="#2b7bba",
+       edgecolor="white",
+      title="Distribución de Ocupados en PyMEs"
+    )
+
+    media_pyme = df_pymes["Ocupados"].mean()
+    mediana_pyme = df_pymes["Ocupados"].median()
+    plt.axvline(media_pyme, color="r", linestyle="--", label=f"Media PyME: {media_pyme:.1f}")
+    plt.axvline(mediana_pyme, color="g", linestyle="-.", label=f"Mediana PyME: {mediana_pyme:.1f}")
+
+    ax.set_xlabel("Cantidad de Ocupados")
+    ax.set_ylabel("Frecuencia (Cantidad de Registros)")
+    plt.xlim(1, 20)
+    plt.xticks(range(1, 21))
+    plt.legend()
+    st.pyplot(fig)
+    
+    st.subheader("Histograma de Ocupados en Grandes Empresas")
+    df_gempresas = df[(df["Ocupados"] > 0) & (df["Ocupados"] >= 20)]
+    fig, ax = plt.subplots(figsize=(13, 5))
+    df_gempresas["Ocupados"].plot(
+       kind="hist",
+       bins=25,
+       ax=ax,
+       color="#e67e22",
+       edgecolor="white",
+      title="Distribución de Ocupados en Grandes Empresas"
+    )
+
+    media_gempresas = df_gempresas["Ocupados"].mean()
+    mediana_gempresas = df_gempresas["Ocupados"].median()
+    plt.axvline(media_gempresas, color="r", linestyle="--", label=f"Media Grandes Empresas: {media_gempresas:.1f}")
+    plt.axvline(mediana_gempresas, color="g", linestyle="-.", label=f"Mediana Grandes Empresas: {mediana_gempresas:.1f}")
+    ax.set_xlabel("Cantidad de Ocupados")
+    ax.set_ylabel("Frecuencia (Cantidad de Registros)")
+    max_valor = int(df_gempresas["Ocupados"].max()) if len(df_gempresas) > 0 else 100
+    plt.xlim(20, max_valor + 20)  
+    plt.legend()
+    st.pyplot(fig)
+
     st.subheader("Gráfico de Violín")
     fig, ax = plt.subplots(figsize=(15, 8))
     sns.violinplot(x="Clase_Industria",
