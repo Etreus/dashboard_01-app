@@ -1,5 +1,5 @@
 streamlit
-matplotlib==3.11.0
+matplotlib==3.11.1
 requests
 pandas
 seaborn
